@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for maju_entrega3 project.
 
@@ -12,6 +14,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from pathlib import Path
+
+# Especificación del modelo de usuario predeterminado
+AUTH_USER_MODEL = 'auth.User'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'contacto',  # Agrega tu aplicación aquí
 ]
 
@@ -56,7 +62,9 @@ ROOT_URLCONF = 'maju_entrega3.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,3 +135,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Lista de nombres de host permitidos para esta instalación
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+
+

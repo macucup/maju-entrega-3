@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Aplicación Django{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'contacto/css/styles.css' %}">
+</head>
+
+
+<body>
+    <header>
+        <h1>Entrega Final!</h1>
+    </header>
+
+    <main>
+        {% block content %}
+        <p>Entrega 3</p>
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>Maria Juliana Carrillo</p>
+    </footer>
+</body>
+</html>

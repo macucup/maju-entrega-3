@@ -1,25 +1,17 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.urls import reverse
-from .forms import ContactoForm
-import logging  # Importa logging si prefieres usarlo para depuración
+from django.contrib.auth import get_user_model
 
-def contacto(request):
-    if request.method == 'POST':
-        form = ContactoForm(request.POST)
-        if form.is_valid():
-            contacto = form.save()
-
-            # Depuración adicional con print()
-            print(f'Nombre: {contacto.nombre}')
-            print(f'Email: {contacto.email}')
-            print(f'Teléfono: {contacto.telefono}')
-
-            # Redirigir a la vista exito con los datos del contacto
-            return redirect(reverse('exito', kwargs={'nombre': contacto.nombre, 'email': contacto.email, 'telefono': contacto.telefono}))
-    else:
-        form = ContactoForm()
-    
-    return render(request, 'contacto.html', {'form': form})
+User = get_user_model()
 
 def exito(request, nombre, email, telefono):
-    return render(request, 'exito.html', {'nombre': nombre, 'email': email, 'telefono': telefono})
+    return render(request, 'contacto/exito.html', {'nombre': nombre, 'email': email, 'telefono': telefono})
+
+def pagina_principal(request):
+    usuarios = User.objects.all()  # Obtener todos los usuarios
+
+    return render(request, 'contacto/contacto.html', {
+        'url_login': reverse('login'),
+        'url_registro': reverse('registro'),  # Agrega el enlace para el registro de usuario
+        'usuarios': usuarios,  # Pasar la lista de usuarios al contexto del template
+    })

@@ -1,0 +1,20 @@
+<!-- En templates/contacto/contacto.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+Entrega Final!
+{% endblock %}
+
+{% block content %}
+ESTO ES UNA PRUEBA
+{% if user.is_authenticated %}
+    <p>Bienvenido, {{ user.username }}!</p>
+    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+{% else %}
+    <a href="{{ url_login }}">Iniciar sesión</a>
+    <a href="{{ url_registro }}">Registrar</a>
+{% endif %}
+{% endblock %}
