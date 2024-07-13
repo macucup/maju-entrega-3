@@ -9,6 +9,11 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
+
+    {% if form.fecha %}
+        <p>Fecha: Introduce la fecha en formato AÑO-MES-DIA</p>
+    {% endif %}
+
     <button type="submit">Guardar</button>
 </form>
 <a href="{% url 'pagina_principal' %}">Cancelar</a>

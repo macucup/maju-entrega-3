@@ -24,7 +24,6 @@ Entrega Final!
 <ul>
     {% for producto in productos %}
         <li>{{ producto.nombre_producto }} - {{ producto.precio }}
-            <button onclick="toggleDetails('detalle-{{ producto.id }}')">Ver Más</button>
             <div id="detalle-{{ producto.id }}" style="display:none;">
                 <p>Fecha: {{ producto.fecha }}</p>
                 <p>Descripción: {{ producto.ver_mas }}</p>
