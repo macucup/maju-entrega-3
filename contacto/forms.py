@@ -11,7 +11,7 @@ class RegistroForm(UserCreationForm):
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
-        fields = ['nombre_producto', 'precio']
+        fields = ['nombre_producto', 'precio', 'ver_mas', 'fecha', 'imagen']
 
 
 

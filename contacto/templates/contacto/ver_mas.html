@@ -1,0 +1,22 @@
+<!-- templates/contacto/ver_mas.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+Detalles del Producto
+{% endblock %}
+
+{% block content %}
+<h2>{{ producto.nombre_producto }}</h2>
+<p>Precio: {{ producto.precio }}</p>
+<p>Descripción: {{ producto.ver_mas }}</p>
+
+{% if producto.imagen %}
+    <img src="{{ producto.imagen.url }}" alt="Imagen de {{ producto.nombre_producto }}" style="max-width: 100%; height: auto;">
+{% else %}
+    <p>No hay imagen disponible.</p>
+{% endif %}
+
+<p>Fecha: {{ producto.fecha|date:"d M Y" }}</p>
+
+<a href="{% url 'pagina_principal' %}">Volver a la lista de productos</a>
+{% endblock %}

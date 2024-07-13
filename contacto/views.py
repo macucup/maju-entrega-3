@@ -11,19 +11,31 @@ def exito(request, nombre, email, telefono):
 
 def pagina_principal(request):
     usuarios = User.objects.all()  # Obtener todos los usuarios
-    productos = Producto.objects.all() #Obtener todos productos
-    
+    productos = Producto.objects.all()  # Obtener todos los productos
+
+    # Convertir fechas a cadenas de texto
+    productos_list = []
+    for producto in productos:
+        producto_dict = {
+            'id': producto.id,
+            'nombre_producto': producto.nombre_producto,
+            'precio': producto.precio,
+            'ver_mas': producto.ver_mas,
+            'fecha': producto.fecha.isoformat(),  # Convertir fecha a cadena de texto
+            'imagen_url': producto.imagen.url if producto.imagen else '',
+        }
+        productos_list.append(producto_dict)
+
     return render(request, 'contacto/contacto.html', {
         'url_login': reverse('login'),
         'url_registro': reverse('registro'),  # Agrega el enlace para el registro de usuario
         'usuarios': usuarios,  # Pasar la lista de usuarios al contexto del template
-        'productos': productos,
+        'productos': productos_list,  # Pasar la lista de productos procesados
     })
-
 
 def crear_producto(request):
     if request.method == 'POST':
-        form = ProductoForm(request.POST)
+        form = ProductoForm(request.POST, request.FILES)  # Pasar request.FILES para manejar archivos
         if form.is_valid():
             form.save()
             return redirect('pagina_principal')
@@ -34,7 +46,7 @@ def crear_producto(request):
 def editar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     if request.method == 'POST':
-        form = ProductoForm(request.POST, instance=producto)
+        form = ProductoForm(request.POST, request.FILES, instance=producto)  # Pasar request.FILES para manejar archivos
         if form.is_valid():
             form.save()
             return redirect('pagina_principal')
@@ -49,3 +61,6 @@ def eliminar_producto(request, producto_id):
         return redirect('pagina_principal')
     return render(request, 'contacto/producto_confirm_delete.html', {'producto': producto})
 
+def ver_mas(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    return render(request, 'contacto/ver_mas.html', {'producto': producto})

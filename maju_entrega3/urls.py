@@ -3,6 +3,8 @@ from django.urls import path, include
 from contacto.views import pagina_principal
 from django.contrib.auth import views as auth_views
 from accounts.views import CustomLogoutView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -12,3 +14,7 @@ urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),  # URL para iniciar sesión
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='pagina_principal'), name='logout'),
 ]
+
+# Agrega esta configuración para manejar archivos media durante el desarrollo
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
