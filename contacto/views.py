@@ -11,7 +11,12 @@ def exito(request, nombre, email, telefono):
 
 def pagina_principal(request):
     usuarios = User.objects.all()  # Obtener todos los usuarios
-    productos = Producto.objects.all()  # Obtener todos los productos
+
+    query = request.GET.get('q', '')  # Obtener el término de búsqueda
+    if query:
+        productos = Producto.objects.filter(nombre_producto__icontains=query)  # Filtrar productos por el término de búsqueda
+    else:
+        productos = Producto.objects.all()  # Obtener todos los productos
 
     # Convertir fechas a cadenas de texto
     productos_list = []
@@ -31,6 +36,7 @@ def pagina_principal(request):
         'url_registro': reverse('registro'),  # Agrega el enlace para el registro de usuario
         'usuarios': usuarios,  # Pasar la lista de usuarios al contexto del template
         'productos': productos_list,  # Pasar la lista de productos procesados
+        'query': query,  # Pasar el término de búsqueda al contexto del template
     })
 
 def crear_producto(request):
@@ -64,3 +70,6 @@ def eliminar_producto(request, producto_id):
 def ver_mas(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     return render(request, 'contacto/ver_mas.html', {'producto': producto})
+
+def sobre_mi(request):
+    return render(request, 'contacto/sobre_mi.html')

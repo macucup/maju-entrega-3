@@ -8,21 +8,46 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'contacto/css/styles.css' %}">
 </head>
-
-
 <body>
     <header>
-        <h1>Entrega Final!</h1>
+        <div class="header-content">
+            <h1>Entrega Final CoderHouse</h1>
+            <!-- Barra de navegación -->
+         <nav>
+             <ul>
+                 <li><a href="{% url 'pagina_principal' %}">Inicio</a></li>
+                 <li><a href="{% url 'sobre_mi' %}">Sobre Mí</a></li>
+             </ul>
+         </nav>
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                    <h3>Bienvenido, {{ user.username }}   !</h3>
+                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit">Cerrar sesión</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="button">Iniciar sesión</a>
+                    <a href="{% url 'registro' %}" class="button">Registrar</a>
+                {% endif %}
+            </div>
+        </div>
     </header>
-
     <main>
         {% block content %}
-        <p>Entrega 3</p>
+        <p>Entrega final</p>
         {% endblock %}
     </main>
-
     <footer>
         <p>Maria Juliana Carrillo</p>
     </footer>
 </body>
 </html>
+
+
+
+
+
+
+
+

@@ -11,6 +11,7 @@ urlpatterns = [
     path('editar/<int:producto_id>/', views.editar_producto, name='editar_producto'),
     path('eliminar/<int:producto_id>/', views.eliminar_producto, name='eliminar_producto'),
     path('ver_mas/<int:producto_id>/', views.ver_mas, name='ver_mas'),  # Nueva URL para los detalles del producto
+    path('sobre_mi/', views.sobre_mi, name='sobre_mi'),  # Nueva ruta para sobre_mi
     # Otras URLs específicas de contacto
 ]
 
