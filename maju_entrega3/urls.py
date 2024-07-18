@@ -13,6 +13,7 @@ urlpatterns = [
     path('contacto/', include('contacto.urls')),  # Incluye las URLs de la app contacto
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),  # URL para iniciar sesión
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='pagina_principal'), name='logout'),
+    path('datos_extra/', include('datos_extra.urls')),
 ]
 
 # Agrega esta configuración para manejar archivos media durante el desarrollo

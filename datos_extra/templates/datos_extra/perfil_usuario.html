@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Perfil de usuario</h1>
+
+    {% if user_profile.avatar %}
+        <img src="{{ user_profile.avatar.url }}" alt="Foto de perfil" style="width: 200px; height: auto;">
+    {% else %}
+        <p>No se ha cargado ninguna imagen de perfil.</p>
+    {% endif %}
+
+    <p>Nombre de usuario: {{ user_profile.user.username }}</p>
+    <p>Correo electrónico: {{ user_profile.user.email }}</p>
+
+    <h2>Editar perfil</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Aquí puedes manejar los errores del formulario -->
+        {% if form.errors %}
+            <div style="color: red;">
+                {% for field, error_list in form.errors.items %}
+                    <strong>{{ field|title }}</strong>:
+                    {% for error in error_list %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Mostrar los campos del formulario para edición -->
+        {{ form.as_p }}
+
+        <button type="submit">Guardar cambios</button>
+    </form>
+{% endblock %}

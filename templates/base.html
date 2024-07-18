@@ -22,6 +22,7 @@
             <div class="auth-buttons">
                 {% if user.is_authenticated %}
                     <h3>Bienvenido, {{ user.username }}   !</h3>
+                    <a href="{% url 'user_profile' %}" class="button">Editar perfil</a>  
                     <form action="{% url 'logout' %}" method="post" style="display: inline;">
                         {% csrf_token %}
                         <button type="submit">Cerrar sesión</button>

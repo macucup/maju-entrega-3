@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'contacto',  # Agrega tu aplicación aquí
+    'contacto',
+    'datos_extra',# Agrega tu aplicación aquí
 ]
 
 MIDDLEWARE = [
@@ -143,6 +144,8 @@ LOGOUT_REDIRECT_URL = '/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 
 
 
