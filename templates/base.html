@@ -13,15 +13,23 @@
         <div class="header-content">
             <h1>Entrega Final CoderHouse</h1>
             <!-- Barra de navegación -->
-         <nav>
-             <ul>
-                 <li><a href="{% url 'pagina_principal' %}">Inicio</a></li>
-                 <li><a href="{% url 'sobre_mi' %}">Sobre Mí</a></li>
-             </ul>
-         </nav>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'pagina_principal' %}">Inicio</a></li>
+                    <li><a href="{% url 'sobre_mi' %}">Sobre Mí</a></li>
+                </ul>
+            </nav>
             <div class="auth-buttons">
                 {% if user.is_authenticated %}
-                    <h3>Bienvenido, {{ user.username }}   !</h3>
+                    <div class="user-info">
+                        {% if user_profile and user_profile.avatar %}
+                            <img src="{{ user_profile.avatar.url }}" alt="Foto de perfil" style="width: 70px; height: 70px; border-radius: 50%;">
+                        {% else %}
+                            <!-- Aquí puedes poner una imagen predeterminada o un texto alternativo -->
+                            <p>No hay foto de perfil cargada.</p>
+                        {% endif %}
+                        <h3>Bienvenido, {{ user.username }}!</h3>
+                    </div>
                     <a href="{% url 'user_profile' %}" class="button">Editar perfil</a>  
                     <form action="{% url 'logout' %}" method="post" style="display: inline;">
                         {% csrf_token %}
@@ -36,7 +44,7 @@
     </header>
     <main>
         {% block content %}
-        <p>Entrega final</p>
+        <!-- Aquí se incluirá el contenido específico de cada página -->
         {% endblock %}
     </main>
     <footer>
@@ -44,11 +52,3 @@
     </footer>
 </body>
 </html>
-
-
-
-
-
-
-
-

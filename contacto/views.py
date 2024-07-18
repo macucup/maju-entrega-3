@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from .models import Producto
 from .forms import ProductoForm
+from django.contrib.auth.decorators import login_required
+from datos_extra.models import UserProfile
 
 User = get_user_model()
 
@@ -73,3 +75,12 @@ def ver_mas(request, producto_id):
 
 def sobre_mi(request):
     return render(request, 'contacto/sobre_mi.html')
+
+@login_required
+def contacto(request):
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)  # Obtener el perfil del usuario autenticado
+    except UserProfile.DoesNotExist:
+        user_profile = None
+
+    return render(request, 'contacto/contacto.html', {'user_profile': user_profile})

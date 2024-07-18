@@ -9,6 +9,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     additional_info = models.TextField()
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)  # Nuevo campo de email
 
     def __str__(self):
         return self.user.username
